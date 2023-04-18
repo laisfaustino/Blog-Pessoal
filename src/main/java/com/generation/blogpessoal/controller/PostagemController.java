@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.repository.PostagemRepository;
+import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
 
@@ -31,11 +32,14 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository postagemRepository;
 	
+	@Autowired
+	private TemaRepository temaRepository;	
+	
 	@GetMapping
-	public ResponseEntity<List<Postagem>>getAll(){
+	public ResponseEntity<List<Postagem>> getAll(){
 		return ResponseEntity.ok(postagemRepository.findAll());
-				
-				//SELECT*FROM tb_postagens;	
+
+		// SELECT * FROM tb_postagens;
 	}
 	
 	@GetMapping("/{id}")
@@ -45,7 +49,7 @@ public class PostagemController {
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 		
-				//SELECT*FROM tb_postagens WHERE id =?;	
+		// SELECT * FROM tb_postagens WHERE id = ?;
 	}
 	
 	@GetMapping("/titulo/{titulo}")
@@ -53,32 +57,48 @@ public class PostagemController {
 		
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
 		
-				//SELECT*FROM tb_postagens WHERE titulo LIKE "%titulo%";	
+		// SELECT * FROM tb_postagens WHERE titulo LIKE "%titulo%";
 	}
 	
 	@PostMapping
-	public ResponseEntity<Postagem>post(@Valid @RequestBody Postagem postagem){
+	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem){
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(postagemRepository.save(postagem));
-		//INSERT INTO tb_postagem(data,titulo,texto)
-				//VALUES (?,?,?)
+		
+		/* INSERT INTO tb_postagens (data, titulo, texto) 
+		 VALUES (?, ?, ?)*/
 	}
 	
 	@PutMapping
-	public ResponseEntity<Postagem>put(@Valid @RequestBody Postagem postagem){
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(postagemRepository.save(postagem));
-		/*UPDATE tb_postagens SET titulo=?,texto=?,data=?
-		 * *WHERE id = id*/
-		 
+	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
+		
+		return postagemRepository.findById(postagem.getId())
+				.map(resposta -> ResponseEntity.ok(postagemRepository.save(postagem)))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+		
+		/* UPDATE tb_postagens SET titulo = ?, texto = ?, data = ?
+		 * WHERE id = id*/
 	}
+	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
+		
 		Optional<Postagem> postagem = postagemRepository.findById(id);
-		if(postagem.isEmpty())
-			throw new
-			ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		if (postagem.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
 		postagemRepository.deleteById(id);
+		
+		/* DELETE FROM tb_postagens WHERE id = id*/
 	}
-		}
+
+	public TemaRepository getTemaRepository() {
+		return temaRepository;
+	}
+
+	public void setTemaRepository(TemaRepository temaRepository) {
+		this.temaRepository = temaRepository;
+	}
+}

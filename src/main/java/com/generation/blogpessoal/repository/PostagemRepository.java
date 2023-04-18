@@ -8,10 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import com.generation.blogpessoal.model.Postagem;
 @Repository
-public interface PostagemRepository extends JpaRepository<Postagem, Long> {
-	
-	List<Postagem> findAllByTituloContainingIgnoreCase(@Param("titulo")String titulo); 
-	
-	//SELECT*FROM tb_postagens WHERE titulo LIKE "%????%;
+public interface PostagemRepository extends JpaRepository<Postagem, Long>{
 
+	List<Postagem> findAllByTituloContainingIgnoreCase(@Param("titulo") String titulo);
+	
+	// SELECT * FROM tb_postagens WHERE titulo LIKE "%titulo%";
 }
