@@ -1,3 +1,4 @@
+
 package com.generation.blogpessoal.model;
 
 public class UsuarioLogin {
@@ -8,6 +9,11 @@ public class UsuarioLogin {
 	private String senha;
 	private String foto;
 	private String token;
+
+
+	public UsuarioLogin(long Id, String nome, String usuario, String senha, String foto, String token) {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Long getId() {
 		return this.id;
@@ -58,3 +64,4 @@ public class UsuarioLogin {
 	}
 
 }
+

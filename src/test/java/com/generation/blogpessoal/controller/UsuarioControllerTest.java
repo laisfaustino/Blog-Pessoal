@@ -135,7 +135,7 @@ public class UsuarioControllerTest {
 			"Marisa Souza", "marisa_souza@email.com.br", "13465278", "-"));
 
 		HttpEntity<UsuarioLogin> corpoRequisicao = new HttpEntity<UsuarioLogin>(new UsuarioLogin(0L,
-				"", "marisa_souza@email.com.br", "13465278", "", ""));
+				"", "marisa_souza@email.com.br", "13465278", "", "")); 
 
 
 		ResponseEntity<UsuarioLogin> corpoResposta = testRestTemplate
@@ -144,4 +144,5 @@ public class UsuarioControllerTest {
 		assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
 
 	}
+
 }

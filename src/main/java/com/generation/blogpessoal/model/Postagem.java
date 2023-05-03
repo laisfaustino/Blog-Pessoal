@@ -1,3 +1,4 @@
+
 package com.generation.blogpessoal.model;
 
 import java.time.LocalDateTime;
@@ -89,5 +90,6 @@ public class Postagem {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
 
 }

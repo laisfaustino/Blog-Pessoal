@@ -1,3 +1,4 @@
+
 package com.generation.blogpessoal.model;
 
 import java.util.List;
@@ -52,5 +53,6 @@ public class Tema {
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
+
 
 }
