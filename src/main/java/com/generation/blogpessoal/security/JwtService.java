@@ -67,5 +67,4 @@ public class JwtService {
 		return createToken(claims, userName);
 	}
 
-
 }

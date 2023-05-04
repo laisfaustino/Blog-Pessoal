@@ -1,4 +1,3 @@
-
 package com.generation.blogpessoal.model;
 
 import java.util.List;
@@ -25,11 +24,13 @@ public class Tema {
 
 	@NotNull(message = "O Atributo Descrição é obrigatório")
 	private String descricao;
+
+	/* Relacionamento*/
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagem;
-
+	
 	public Long getId() {
 		return this.id;
 	}
@@ -46,6 +47,8 @@ public class Tema {
 		this.descricao = descricao;
 	}
 
+	/* Métodos Get e Set da Collection Postagem*/
+	
 	public List<Postagem> getPostagem() {
 		return postagem;
 	}
@@ -53,6 +56,5 @@ public class Tema {
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-
 
 }

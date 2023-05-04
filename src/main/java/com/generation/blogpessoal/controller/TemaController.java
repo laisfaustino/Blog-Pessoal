@@ -44,7 +44,7 @@ public class TemaController {
     }
     
     @GetMapping("/descricao/{descricao}")
-    public ResponseEntity<List<Tema>> getByTitle(@PathVariable 
+    public ResponseEntity<List<Tema>> getByDescricao(@PathVariable 
     String descricao){
         return ResponseEntity.ok(temaRepository
             .findAllByDescricaoContainingIgnoreCase(descricao));
@@ -59,7 +59,7 @@ public class TemaController {
     @PutMapping
     public ResponseEntity<Tema> put(@Valid @RequestBody Tema tema){
         return temaRepository.findById(tema.getId())
-            .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
+            .map(resposta -> ResponseEntity.status(HttpStatus.OK)
             .body(temaRepository.save(tema)))
             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
